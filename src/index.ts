@@ -1,4 +1,4 @@
-const syntaxErrorCheck = require('syntax-error');
+import syntaxErrorCheck from 'syntax-error';
 
 function debuggableEval(code: string, scriptName: string = 'dynamicScript.js'): unknown {
     const syntaxError = syntaxErrorCheck(code);

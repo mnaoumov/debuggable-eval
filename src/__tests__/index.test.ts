@@ -24,18 +24,18 @@ describe('debuggableEval', () => {
       const error = catchError(codeWithError, 'testScript.js');
       expect(error).not.toBeNull();
     });
-  
+
     it('stack contains script name', () => {
       const error = catchError(codeWithError, 'testScript.js') as Error;
       expect(error.stack).toContain('testScript.js');
     });
-  
+
     it('stack contains proper error line number', () => {
       const error = catchError(codeWithError, 'testScript.js') as Error;
       const match = (error.stack as string).match(/testScript\.js:(\d+):/) as RegExpMatchArray;
       expect(Number(match[1])).toBe(3);
     });
-  
+
     it('stack contains proper error column number', () => {
       const error = catchError(codeWithError, 'testScript.js') as Error;
       const match = (error.stack as string).match(/testScript\.js:\d+:(\d+)\)/) as RegExpMatchArray;
@@ -48,7 +48,7 @@ describe('debuggableEval', () => {
       const error = catchError(codeWithSyntaxError, 'testScript.js') as Error;
       expect(error).toBeInstanceOf(SyntaxError);
     });
-  
+
     it('message contains script name', () => {
       const error = catchError(codeWithSyntaxError, 'testScript.js') as Error;
       expect(error.message).toContain('testScript.js');
@@ -65,5 +65,5 @@ describe('debuggableEval', () => {
       const match = error.message.match(/testScript\.js:\d+:(\d+)\n/) as RegExpMatchArray;
       expect(Number(match[1])).toBe(23);
     });
-  })
+  });
 });

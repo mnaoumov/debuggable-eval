@@ -8,9 +8,7 @@ function debuggableEval(code: string, scriptName = 'dynamicScript.js'): unknown 
     );
   }
 
-  const wrappedCode = `${code}
-//# sourceURL=${scriptName}
-//# sourceMappingURL=data:application/json;base64,${btoa(code)}`;
+  const wrappedCode = `${code}\n//# sourceURL=${scriptName}\n//# sourceMappingURL=data:application/json;base64,${btoa(code)}`;
   return eval(wrappedCode);
 }
 

@@ -1,5 +1,4 @@
 import syntaxErrorCheck from 'syntax-error';
-import { Buffer } from 'buffer';
 
 function debuggableEval(code: string, scriptName = 'dynamicScript.js'): unknown {
   const syntaxError = syntaxErrorCheck(code);
@@ -9,8 +8,7 @@ function debuggableEval(code: string, scriptName = 'dynamicScript.js'): unknown 
     );
   }
 
-  const base64 = Buffer.from(code).toString('base64');
-  const wrappedCode = `${code}\n//# sourceURL=${scriptName}\n//# sourceMappingURL=data:application/json;base64,${base64}`;
+  const wrappedCode = `${code}\n//# sourceURL=${scriptName}`;
   return eval(wrappedCode);
 }
 

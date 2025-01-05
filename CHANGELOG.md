@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.1.0
+
+- Encode URI
+
 ## 2.0.3
 
 - Output cjs

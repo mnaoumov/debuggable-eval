@@ -46,8 +46,10 @@ console.log('Line 2');
 throw new Error('Error in Line 3');`, 'testScript.js');
 ```
 
-## 📝 License
+## Support
 
-Copyright © 2024 [Michael Naumov](https://github.com/mnaoumov).
+<a href="https://www.buymeacoffee.com/mnaoumov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;"></a>
 
-This project is [MIT](LICENSE.md) licensed.
+## License
+
+© [Michael Naumov](https://github.com/mnaoumov/)

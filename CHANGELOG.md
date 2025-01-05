@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2.1.1
+
+- Change slashes
+- Allow /
+
 ## 2.1.0
 
 - Encode URI

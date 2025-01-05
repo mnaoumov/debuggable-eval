@@ -2,11 +2,11 @@
   "name": "debuggable-eval",
   "version": "2.0.2",
   "description": "TypeScript NPM Module Boilerplate",
-  "main": "dist/lib/index.js",
+  "main": "dist/lib/index.cjs",
   "types": "dist/lib/index.d.ts",
   "exports": {
     "types": "./dist/lib/index.d.ts",
-    "default": "./dist/lib/index.js"
+    "default": "./dist/lib/index.cjs"
   },
   "scripts": {
     "build": "npm run build:compile && npm run build:types",

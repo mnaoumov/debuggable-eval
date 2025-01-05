@@ -12,4 +12,4 @@ function debuggableEval(code: string, scriptName = 'dynamicScript.js'): unknown 
   return eval(wrappedCode);
 }
 
-export default debuggableEval;
+export { debuggableEval };

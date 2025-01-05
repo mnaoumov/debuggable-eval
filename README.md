@@ -37,9 +37,9 @@ npm install debuggable-eval
 ```
 
 ```js
-const debuggableEval = require('debuggable-eval');
+const { debuggableEval } = require('debuggable-eval');
 // or
-import debuggableEval from 'debuggable-eval';
+import { debuggableEval } from 'debuggable-eval';
 
 debuggableEval(`console.log('Line 1');
 console.log('Line 2');
@@ -48,6 +48,6 @@ throw new Error('Error in Line 3');`, 'testScript.js');
 
 ## 📝 License
 
-Copyright © 2023 [Michael Naumov](https://github.com/mnaoumov).
+Copyright © 2024 [Michael Naumov](https://github.com/mnaoumov).
 
 This project is [MIT](LICENSE.md) licensed.

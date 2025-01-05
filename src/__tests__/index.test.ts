@@ -1,4 +1,4 @@
-import debuggableEval from '../index';
+import { debuggableEval } from '../index.ts';
 
 const codeWithError = `console.log('Line 1');
 console.log('Line 2');
@@ -26,44 +26,44 @@ describe('debuggableEval', () => {
     });
 
     it('stack contains script name', () => {
-      const error = catchError(codeWithError, 'testScript.js') as Error;
-      expect(error.stack).toContain('testScript.js');
+      const error = catchError(codeWithError, 'testScript.js');
+      expect(error?.stack).toContain('testScript.js');
     });
 
     it('stack contains proper error line number', () => {
-      const error = catchError(codeWithError, 'testScript.js') as Error;
-      const match = (error.stack as string).match(/testScript\.js:(\d+):/) as RegExpMatchArray;
-      expect(Number(match[1])).toBe(3);
+      const error = catchError(codeWithError, 'testScript.js');
+      const match = /testScript\.js:(\d+):/.exec(error?.stack ?? '');
+      expect(Number(match?.[1])).toBe(3);
     });
 
     it('stack contains proper error column number', () => {
-      const error = catchError(codeWithError, 'testScript.js') as Error;
-      const match = (error.stack as string).match(/testScript\.js:\d+:(\d+)\)/) as RegExpMatchArray;
-      expect(Number(match[1])).toBe(7);
+      const error = catchError(codeWithError, 'testScript.js');
+      const match = /testScript\.js:\d+:(\d+)\)/.exec(error?.stack ?? '');
+      expect(Number(match?.[1])).toBe(7);
     });
   });
 
   describe('syntax errors', () => {
     it('thrown when the code is invalid', () => {
-      const error = catchError(codeWithSyntaxError, 'testScript.js') as Error;
+      const error = catchError(codeWithSyntaxError, 'testScript.js');
       expect(error).toBeInstanceOf(SyntaxError);
     });
 
     it('message contains script name', () => {
-      const error = catchError(codeWithSyntaxError, 'testScript.js') as Error;
-      expect(error.message).toContain('testScript.js');
+      const error = catchError(codeWithSyntaxError, 'testScript.js');
+      expect(error?.message).toContain('testScript.js');
     });
 
     it('message contains proper line number', () => {
-      const error = catchError(codeWithSyntaxError, 'testScript.js') as Error;
-      const match = error.message.match(/testScript\.js:(\d+):/) as RegExpMatchArray;
-      expect(Number(match[1])).toBe(3);
+      const error = catchError(codeWithSyntaxError, 'testScript.js');
+      const match = /testScript\.js:(\d+):/.exec(error?.message ?? '');
+      expect(Number(match?.[1])).toBe(3);
     });
 
     it('message contains proper column number', () => {
-      const error = catchError(codeWithSyntaxError, 'testScript.js') as Error;
-      const match = error.message.match(/testScript\.js:\d+:(\d+)\n/) as RegExpMatchArray;
-      expect(Number(match[1])).toBe(23);
+      const error = catchError(codeWithSyntaxError, 'testScript.js');
+      const match = /testScript\.js:\d+:(\d+)\n/.exec(error?.message ?? '');
+      expect(Number(match?.[1])).toBe(23);
     });
   });
 });

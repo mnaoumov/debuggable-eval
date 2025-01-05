@@ -44,5 +44,6 @@
   ],
   "dependencies": {
     "syntax-error": "^1.4.0"
-  }
+  },
+  "type": "module"
 }

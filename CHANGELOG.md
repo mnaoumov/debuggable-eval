@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.3
+
+- Output cjs
+
 ## 2.0.2
 
 - Fix deploy

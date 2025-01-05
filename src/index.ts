@@ -12,7 +12,7 @@ function debuggableEval(code: string, scriptName?: string): unknown {
     );
   }
 
-  const wrappedCode = `${code}\n//# sourceURL=${encodeURIComponent(scriptName)}`;
+  const wrappedCode = `${code}\n//# sourceURL=${encodeURI(scriptName)}`;
   return globalThis.eval(wrappedCode);
 }
 

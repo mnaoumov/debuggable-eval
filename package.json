@@ -2,15 +2,22 @@
   "name": "debuggable-eval",
   "version": "1.2.0",
   "description": "TypeScript NPM Module Boilerplate",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
+  "exports": {
+    "types": "./dist/lib/index.d.ts",
+    "default": "./dist/lib/index.js"
+  },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run build:compile && npm run build:types",
+    "build:compile": "tsx scripts/build.ts",
+    "build:types": "tsc --project ./tsconfig.types.json",
     "format": "prettier --write \"src/**/*.(js|ts)\"",
     "lint": "obsidian-dev-utils lint",
     "lint:fix": "obsidian-dev-utils lint:fix",
     "spellcheck": "obsidian-dev-utils spellcheck",
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.js",
+    "version": "tsx scripts/version.ts"
   },
   "repository": {
     "type": "git",
@@ -35,7 +42,12 @@
     "typescript": "^5.7.2"
   },
   "files": [
-    "lib/**/*"
+    "dist/",
+    "!dist/*.zip",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
   "dependencies": {
     "syntax-error": "^1.4.0"

@@ -13,7 +13,7 @@ function debuggableEval(code: string, scriptName?: string): unknown {
   }
 
   const wrappedCode = `${code}\n//# sourceURL=${scriptName}`;
-  return eval(wrappedCode);
+  return globalThis.eval(wrappedCode);
 }
 
 function simpleHash(str: string): number {

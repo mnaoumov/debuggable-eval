@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.1
+
+- Fix deploy
+
 ## 2.0.0
 
 - Use global eval

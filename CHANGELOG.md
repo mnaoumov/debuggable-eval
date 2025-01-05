@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.2
+
+- Fix deploy
+
 ## 2.0.1
 
 - Fix deploy

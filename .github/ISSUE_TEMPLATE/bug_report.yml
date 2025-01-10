@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a bug and help improve the generator
+description: Report a bug and help improve the library
 title: "[BUG] Short description of the bug"
 labels: bug
 assignees: mnaoumov

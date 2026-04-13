@@ -8,6 +8,10 @@ import type { Position } from 'acorn';
 
 import { parse } from 'acorn';
 
+interface AcornSyntaxError extends SyntaxError {
+  loc?: Position;
+}
+
 const ECMA_VERSION = 2024;
 const HASH_RADIX = 36;
 const HASH_SHIFT = 5;
@@ -71,7 +75,7 @@ function checkSyntax(code: string, scriptName: string): void {
  * @returns A location string like `"3:10"`, or `null` if no location is available.
  */
 function extractAcornLocation(error: SyntaxError): null | string {
-  const loc = (error as { loc?: Position }).loc;
+  const loc = (error as AcornSyntaxError).loc;
   if (!loc) {
     return null;
   }

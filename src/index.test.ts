@@ -7,6 +7,10 @@ import {
 
 import { debuggableEval } from './index.ts';
 
+interface ErrorWithCause extends Error {
+  cause: unknown;
+}
+
 const CODE_WITH_ERROR = dedent`
   console.log('Line 1');
   console.log('Line 2');
@@ -80,7 +84,7 @@ describe('debuggableEval', () => {
     it('preserves original error as cause', () => {
       const error = catchError(CODE_WITH_SYNTAX_ERROR, 'testScript.js');
       expect(error).toHaveProperty('cause');
-      expect((error as { cause: unknown }).cause).toBeInstanceOf(SyntaxError);
+      expect((error as ErrorWithCause).cause).toBeInstanceOf(SyntaxError);
     });
   });
 

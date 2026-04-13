@@ -1,34 +1,10 @@
-<p align="center">
- <h2 align="center">:package: debuggable-eval</h2>
- <p align="center">Makes eval() debugger-friendly with ability to set breakpoints and see proper line numbers in the Error stack traces</p>
-  <p align="center">
-    <a href="https://github.com/mnaoumov/debuggable-eval/issues">
-      <img alt="Issues" src="https://img.shields.io/github/issues/mnaoumov/debuggable-eval?style=flat&color=336791" />
-    </a>
-    <a href="https://github.com/mnaoumov/debuggable-eval/pulls">
-      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/mnaoumov/debuggable-eval?style=flat&color=336791" />
-    </a>
-     <a href="https://github.com/mnaoumov/debuggable-eval">
-      <img alt="GitHub Downloads" src="https://img.shields.io/npm/dw/debuggable-eval?style=flat&color=336791" />
-    </a>
-    <a href="https://github.com/mnaoumov/debuggable-eval">
-      <img alt="GitHub Total Downloads" src="https://img.shields.io/npm/dt/debuggable-eval?color=336791&label=Total%20downloads" />
-    </a>
-    <a href="https://github.com/mnaoumov/debuggable-eval">
-      <img alt="GitHub release" src="https://img.shields.io/github/release/mnaoumov/debuggable-eval.svg?style=flat&color=336791" />
-    </a>
-    <br />
-    <br />
-    <a href="https://github.com/mnaoumov/debuggable-eval/issues/new/choose">Report Bug</a>
-    <a href="https://github.com/mnaoumov/debuggable-eval/issues/new/choose">Request Feature</a>
-  </p>
-</>
+# debuggable-eval
 
-# NPM Module debuggable-eval
+Makes `eval()` debugger-friendly with ability to set breakpoints and see proper line numbers in Error stack traces.
 
+[![npm version](https://img.shields.io/github/release/mnaoumov/debuggable-eval.svg?style=flat&color=336791)](https://github.com/mnaoumov/debuggable-eval)
+[![npm downloads](https://img.shields.io/npm/dw/debuggable-eval?style=flat&color=336791)](https://www.npmjs.com/package/debuggable-eval)
 [![codecov](https://codecov.io/gh/mnaoumov/debuggable-eval/branch/main/graph/badge.svg?token=Q9fr548J0D)](https://codecov.io/gh/mnaoumov/debuggable-eval)
-
-Makes eval() debugger-friendly with ability to set breakpoints and see proper line numbers in the Error stack traces
 
 ## Usage
 
@@ -48,8 +24,8 @@ throw new Error('Error in Line 3');`, 'testScript.js');
 
 ## Support
 
-<a href="https://www.buymeacoffee.com/mnaoumov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;"></a>
+[Buy Me A Coffee](https://www.buymeacoffee.com/mnaoumov)
 
 ## License
 
-© [Michael Naumov](https://github.com/mnaoumov/)
+MIT - [Michael Naumov](https://github.com/mnaoumov/)

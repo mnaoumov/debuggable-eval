@@ -1,23 +1,79 @@
 {
   "name": "debuggable-eval",
   "version": "2.1.1",
-  "description": "TypeScript NPM Module Boilerplate",
+  "description": "Makes eval() debugger-friendly with ability to set breakpoints and see proper line numbers in Error stack traces.",
+  "type": "module",
   "main": "dist/lib/index.cjs",
   "types": "dist/lib/index.d.ts",
   "exports": {
     "types": "./dist/lib/index.d.ts",
     "default": "./dist/lib/index.cjs"
   },
+  "files": [
+    "dist/",
+    "!dist/*.zip",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
   "scripts": {
     "build": "npm run build:compile && npm run build:types",
-    "build:compile": "tsx scripts/build.ts",
+    "build:compile": "jiti scripts/build-compile.ts",
     "build:types": "tsc --project ./tsconfig.types.json",
-    "format": "prettier --write \"src/**/*.(js|ts)\"",
-    "lint": "obsidian-dev-utils lint",
-    "lint:fix": "obsidian-dev-utils lint:fix",
-    "spellcheck": "obsidian-dev-utils spellcheck",
-    "test": "jest --config jest.config.js",
-    "version": "tsx scripts/version.ts"
+    "commit": "jiti scripts/commit.ts",
+    "format": "jiti scripts/format.ts",
+    "format:check": "jiti scripts/format-check.ts",
+    "lint": "jiti scripts/lint.ts",
+    "lint:fix": "jiti scripts/lint-fix.ts",
+    "lint:md": "jiti scripts/lint-md.ts",
+    "lint:md:fix": "jiti scripts/lint-md-fix.ts",
+    "prepare": "jiti scripts/prepare.ts",
+    "spellcheck": "jiti scripts/spellcheck.ts",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@commitlint/types": "latest",
+    "@eslint-community/eslint-plugin-eslint-comments": "latest",
+    "@eslint/compat": "latest",
+    "@eslint/js": "latest",
+    "@stylistic/eslint-plugin": "latest",
+    "@total-typescript/ts-reset": "latest",
+    "@tsconfig/strictest": "latest",
+    "@types/markdown-it": "latest",
+    "@types/node": "latest",
+    "@typescript-eslint/utils": "latest",
+    "@vitest/coverage-v8": "latest",
+    "better-typescript-lib": "latest",
+    "commitizen": "latest",
+    "cspell": "latest",
+    "cz-conventional-changelog": "latest",
+    "dprint": "latest",
+    "esbuild": "latest",
+    "eslint": "latest",
+    "eslint-import-resolver-typescript": "latest",
+    "eslint-plugin-import-x": "latest",
+    "eslint-plugin-jsdoc": "latest",
+    "eslint-plugin-perfectionist": "latest",
+    "eslint-plugin-tsdoc": "latest",
+    "globals": "latest",
+    "husky": "latest",
+    "jiti": "latest",
+    "markdownlint": "latest",
+    "markdownlint-cli2": "latest",
+    "markdownlint-rule-relative-links": "latest",
+    "nano-staged": "latest",
+    "type-fest": "latest",
+    "typescript": "latest",
+    "typescript-eslint": "latest",
+    "vitest": "latest"
+  },
+  "overrides": {
+    "eslint-plugin-import": "npm:eslint-plugin-import-x@latest",
+    "type-fest": "latest"
   },
   "repository": {
     "type": "git",
@@ -31,27 +87,5 @@
   "bugs": {
     "url": "https://github.com/mnaoumov/debuggable-eval/issues"
   },
-  "homepage": "https://github.com/mnaoumov/debuggable-eval#readme",
-  "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "@types/syntax-error": "^1.4.5",
-    "jest": "^29.7.0",
-    "obsidian-dev-utils": "^11.3.0",
-    "prettier": "^3.4.2",
-    "ts-jest": "^29.2.5",
-    "typescript": "^5.7.2"
-  },
-  "files": [
-    "dist/",
-    "!dist/*.zip",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md",
-    "package.json"
-  ],
-  "dependencies": {
-    "esbuild": "^0.24.2",
-    "syntax-error": "^1.4.0"
-  },
-  "type": "module"
+  "homepage": "https://github.com/mnaoumov/debuggable-eval#readme"
 }

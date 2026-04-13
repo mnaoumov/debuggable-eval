@@ -1,8 +1,8 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
+    "allowArbitraryExtensions": true,
     "allowImportingTsExtensions": true,
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
@@ -10,17 +10,25 @@
     "inlineSources": true,
     "lib": [
       "DOM",
-      "ESNext"
+      "ES2024"
     ],
+    "libReplacement": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "noEmit": true,
     "skipLibCheck": false,
-    "target": "ESNext",
+    "target": "ES2024",
+    "types": [
+      "@total-typescript/ts-reset",
+      "node"
+    ],
     "verbatimModuleSyntax": true
   },
   "include": [
-    "src/**/*.ts",
-    "scripts/**/*.ts"
+    "./commitlint.config.ts",
+    "./eslint.config.mts",
+    "./scripts/**/*.ts",
+    "./src/**/*.ts",
+    "./vitest.config.ts"
   ]
 }

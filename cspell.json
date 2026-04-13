@@ -1,14 +1,17 @@
 {
   "version": "0.2",
   "ignorePaths": [
-    "dist"
+    ".husky",
+    "coverage",
+    "dist",
+    "scripts/helpers/@types/markdownlint-cli2-config-schema.d.ts"
   ],
-  "dictionaryDefinitions": [],
-  "dictionaries": [],
   "words": [
-    "Naumov"
-  ],
-  "ignoreWords": [],
-  "import": [],
-  "enabled": true
+    "debuggable",
+    "Jsdocs",
+    "mnaoumov",
+    "Naumov",
+    "TSES",
+    "Tsdocs"
+  ]
 }

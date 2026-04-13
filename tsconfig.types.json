@@ -1,16 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": false,
     "declaration": true,
     "emitDeclarationOnly": true,
     "noEmit": false,
-    "outDir": "./dist/lib",
-    "resolveJsonModule": true
+    "outDir": "dist/lib"
   },
   "include": [
     "./src/**/*.ts"
   ],
   "exclude": [
-    "./src/__tests__/**/*.ts"
+    "./src/**/*.test.ts"
   ]
 }

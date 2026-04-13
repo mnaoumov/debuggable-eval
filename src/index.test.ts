@@ -60,9 +60,16 @@ describe('debuggableEval', () => {
 
     it('message contains proper line number', () => {
       const error = catchError(CODE_WITH_SYNTAX_ERROR, 'testScript.js');
-      const match = /testScript\.js:(?<line>\d+)/.exec(error?.message ?? '');
+      const match = /testScript\.js:(?<line>\d+):/.exec(error?.message ?? '');
       const SYNTAX_ERROR_LINE = 3;
       expect(Number(match?.groups?.['line'])).toBe(SYNTAX_ERROR_LINE);
+    });
+
+    it('message contains proper column number', () => {
+      const error = catchError(CODE_WITH_SYNTAX_ERROR, 'testScript.js');
+      const match = /testScript\.js:\d+:(?<column>\d+)/.exec(error?.message ?? '');
+      expect(match?.groups?.['column']).toBeDefined();
+      expect(Number(match?.groups?.['column'])).toBeGreaterThanOrEqual(0);
     });
 
     it('preserves original error as cause', () => {

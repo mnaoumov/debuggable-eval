@@ -4,51 +4,42 @@
  * Makes `eval()` debugger-friendly with ability to set breakpoints and see proper line numbers in Error stack traces.
  */
 
+import type { Position } from 'acorn';
+
+import { parse } from 'acorn';
+
+const ECMA_VERSION = 2024;
 const HASH_RADIX = 36;
 const HASH_SHIFT = 5;
 const SOURCE_URL_PATTERN = /\/\/#\s*sourceURL\s*=/;
 
 /**
- * Checks the given code for syntax errors.
+ * Checks the given code for syntax errors using acorn parser.
  *
- * Uses `vm.Script` (Node.js) for rich error messages with line/column info,
- * falling back to `new Function()` in non-Node environments.
+ * Provides line and column numbers in error messages regardless of the runtime environment.
  *
  * @param code - The code to check.
  * @param scriptName - The script name to include in error messages.
- * @throws SyntaxError if the code contains syntax errors, with script name and location info.
+ * @throws SyntaxError if the code contains syntax errors, with script name, line, and column info.
  */
 function checkSyntax(code: string, scriptName: string): void {
   try {
-    checkSyntaxWithVmScript(code, scriptName);
+    parse(code, {
+      allowAwaitOutsideFunction: true,
+      allowHashBang: true,
+      allowImportExportEverywhere: true,
+      allowReturnOutsideFunction: true,
+      ecmaVersion: ECMA_VERSION,
+      sourceType: 'module'
+    });
   } catch (error: unknown) {
     if (error instanceof SyntaxError) {
-      const location = extractLocationFromStack(error, scriptName);
+      const location = extractAcornLocation(error);
       const prefix = location ? `${scriptName}:${location}` : scriptName;
       throw new SyntaxError(`${prefix}: ${error.message}`, { cause: error });
     }
     throw error;
   }
-}
-
-/**
- * Attempts syntax checking via Node.js `vm.Script` for rich line/column errors,
- * falling back to `new Function()` in non-Node environments.
- *
- * @param code - The code to check.
- * @param scriptName - The filename to associate with the script.
- * @throws SyntaxError with location info if the code has syntax errors.
- */
-function checkSyntaxWithVmScript(code: string, scriptName: string): void {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports, import-x/no-nodejs-modules -- Dynamic require to gracefully degrade in non-Node environments where vm is unavailable.
-  const vm = require('node:vm') as typeof import('node:vm') | undefined;
-  if (vm?.Script) {
-    new vm.Script(code, { filename: scriptName });
-    return;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func -- Intentional: used solely for syntax validation, not execution.
-  new Function(code);
 }
 
 /**
@@ -72,28 +63,19 @@ function debuggableEval(code: string, scriptName?: string): unknown {
 }
 
 /**
- * Extracts line and column location from a SyntaxError's stack trace.
+ * Extracts line and column location from an acorn SyntaxError.
  *
- * V8's `vm.Script` errors include a line like `filename:line` at the top of the stack.
- * This function parses that to return a `"line:column"` or `"line"` string.
+ * Acorn attaches a `loc` property with `{ line, column }` to its SyntaxErrors.
  *
- * @param error - The SyntaxError to extract location from.
- * @param scriptName - The script name to look for in the stack.
- * @returns A location string like `"3"` or `"3:10"`, or `null` if not found.
+ * @param error - The SyntaxError thrown by acorn.
+ * @returns A location string like `"3:10"`, or `null` if no location is available.
  */
-function extractLocationFromStack(error: SyntaxError, scriptName: string): null | string {
-  const stack = error.stack ?? '';
-  const escapedName = scriptName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const locationPattern = new RegExp(`${escapedName}:(?<line>\\d+)(?::(?<column>\\d+))?`);
-  const match = locationPattern.exec(stack);
-  if (!match?.groups?.['line']) {
+function extractAcornLocation(error: SyntaxError): null | string {
+  const loc = (error as { loc?: Position }).loc;
+  if (!loc) {
     return null;
   }
-  const column = match.groups['column'];
-  if (column) {
-    return `${match.groups['line']}:${column}`;
-  }
-  return match.groups['line'];
+  return `${String(loc.line)}:${String(loc.column)}`;
 }
 
 /**

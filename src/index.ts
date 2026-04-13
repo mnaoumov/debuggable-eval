@@ -14,6 +14,26 @@ const HASH_SHIFT = 5;
 const SOURCE_URL_PATTERN = /\/\/#\s*sourceURL\s*=/;
 
 /**
+ * Evaluates JavaScript code with debugger-friendly source mapping.
+ *
+ * Appends a `//# sourceURL` pragma so that debuggers and Error stack traces
+ * show meaningful script names and line numbers instead of anonymous eval references.
+ *
+ * @param code - The JavaScript code string to evaluate.
+ * @param scriptName - An optional name for the script. If omitted, a hash-based name is generated.
+ * @returns The result of evaluating the code.
+ */
+export function debuggableEval(code: string, scriptName?: string): unknown {
+  scriptName ??= `debuggable-eval:${simpleHash(code).toString(HASH_RADIX)}`;
+
+  checkSyntax(code, scriptName);
+
+  const sanitizedCode = code.replace(SOURCE_URL_PATTERN, '// (overridden sourceURL)=');
+  const wrappedCode = `${sanitizedCode}\n//# sourceURL=${encodeURI(scriptName.replace(/\\/g, '/'))}`;
+  return globalThis.eval(wrappedCode);
+}
+
+/**
  * Checks the given code for syntax errors using acorn parser.
  *
  * Provides line and column numbers in error messages regardless of the runtime environment.
@@ -40,26 +60,6 @@ function checkSyntax(code: string, scriptName: string): void {
     }
     throw error;
   }
-}
-
-/**
- * Evaluates JavaScript code with debugger-friendly source mapping.
- *
- * Appends a `//# sourceURL` pragma so that debuggers and Error stack traces
- * show meaningful script names and line numbers instead of anonymous eval references.
- *
- * @param code - The JavaScript code string to evaluate.
- * @param scriptName - An optional name for the script. If omitted, a hash-based name is generated.
- * @returns The result of evaluating the code.
- */
-function debuggableEval(code: string, scriptName?: string): unknown {
-  scriptName ??= `debuggable-eval:${simpleHash(code).toString(HASH_RADIX)}`;
-
-  checkSyntax(code, scriptName);
-
-  const sanitizedCode = code.replace(SOURCE_URL_PATTERN, '// (overridden sourceURL)=');
-  const wrappedCode = `${sanitizedCode}\n//# sourceURL=${encodeURI(scriptName.replace(/\\/g, '/'))}`;
-  return globalThis.eval(wrappedCode);
 }
 
 /**
@@ -98,5 +98,3 @@ function simpleHash(str: string): number {
   // eslint-disable-next-line no-bitwise -- Unsigned right shift to get non-negative 32-bit integer.
   return hash >>> 0;
 }
-
-export { debuggableEval };

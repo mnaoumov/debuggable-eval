@@ -41,7 +41,7 @@ function checkSyntax(code: string, scriptName: string): void {
  */
 function checkSyntaxWithVmScript(code: string, scriptName: string): void {
   // eslint-disable-next-line @typescript-eslint/no-require-imports, import-x/no-nodejs-modules -- Dynamic require to gracefully degrade in non-Node environments where vm is unavailable.
-  const vm = require('vm') as typeof import('vm') | undefined;
+  const vm = require('node:vm') as typeof import('node:vm') | undefined;
   if (vm?.Script) {
     new vm.Script(code, { filename: scriptName });
     return;

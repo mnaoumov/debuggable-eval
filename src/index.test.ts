@@ -1,3 +1,4 @@
+import dedent from 'dedent';
 import {
   describe,
   expect,
@@ -6,14 +7,18 @@ import {
 
 import { debuggableEval } from './index.ts';
 
-const CODE_WITH_ERROR = `console.log('Line 1');
-console.log('Line 2');
-throw new Error('Error in Line 3');
-console.log('Line 4');`;
+const CODE_WITH_ERROR = dedent`
+  console.log('Line 1');
+  console.log('Line 2');
+  throw new Error('Error in Line 3');
+  console.log('Line 4');
+`;
 
-const CODE_WITH_SYNTAX_ERROR = `console.log('Line 1');
-function missingClosingBrace() {
-console.log('Line 3');`;
+const CODE_WITH_SYNTAX_ERROR = dedent`
+  console.log('Line 1');
+  function missingClosingBrace() {
+  console.log('Line 3');
+`;
 
 function catchError(code: string, scriptName: string): Error | null {
   try {

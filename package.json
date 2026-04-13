@@ -54,6 +54,7 @@
     "commitizen": "latest",
     "cspell": "latest",
     "cz-conventional-changelog": "latest",
+    "dedent": "latest",
     "dprint": "latest",
     "esbuild": "latest",
     "eslint": "latest",

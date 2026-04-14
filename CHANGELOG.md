@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.2.1
+
+- chore: ignore archive
+
 ## 2.2.0
 
 - refactor: emit explicit .d.cts and .d.mts type declarations

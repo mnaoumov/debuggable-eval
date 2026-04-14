@@ -3,9 +3,11 @@
   "compilerOptions": {
     "allowImportingTsExtensions": false,
     "declaration": true,
+    "declarationMap": true,
     "emitDeclarationOnly": true,
     "noEmit": false,
-    "outDir": "dist/lib"
+    "outDir": "./dist/lib/esm",
+    "declarationDir": "./dist/lib/esm"
   },
   "include": [
     "./src/**/*.ts"

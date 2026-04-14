@@ -18,6 +18,7 @@
   },
   "files": [
     "dist/",
+    "!dist/*.tgz",
     "!dist/*.zip",
     "CHANGELOG.md",
     "LICENSE",

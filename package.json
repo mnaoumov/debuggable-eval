@@ -39,7 +39,7 @@
     "prepare": "jiti scripts/prepare.ts",
     "spellcheck": "jiti scripts/spellcheck.ts",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "jiti scripts/test-coverage.ts",
     "version": "jiti scripts/version.ts"
   },
   "dependencies": {

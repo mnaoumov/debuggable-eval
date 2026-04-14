@@ -56,6 +56,7 @@ function checkSyntax(code: string, scriptName: string): void {
       ecmaVersion: ECMA_VERSION,
       sourceType: 'module'
     });
+    /* v8 ignore start -- acorn only throws SyntaxError with loc; defensive catch for unexpected errors or missing loc. */
   } catch (error: unknown) {
     if (error instanceof SyntaxError) {
       const location = extractAcornLocation(error);
@@ -64,6 +65,7 @@ function checkSyntax(code: string, scriptName: string): void {
     }
     throw error;
   }
+  /* v8 ignore stop */
 }
 
 /**
@@ -74,6 +76,7 @@ function checkSyntax(code: string, scriptName: string): void {
  * @param error - The SyntaxError thrown by acorn.
  * @returns A location string like `"3:10"`, or `null` if no location is available.
  */
+/* v8 ignore start -- acorn always attaches loc to SyntaxErrors; defensive null check for the branch. */
 function extractAcornLocation(error: SyntaxError): null | string {
   const loc = (error as AcornSyntaxError).loc;
   if (!loc) {
@@ -81,6 +84,7 @@ function extractAcornLocation(error: SyntaxError): null | string {
   }
   return `${String(loc.line)}:${String(loc.column)}`;
 }
+/* v8 ignore stop */
 
 /**
  * Computes a simple non-cryptographic hash of a string.

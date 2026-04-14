@@ -3,11 +3,18 @@
   "version": "2.1.1",
   "description": "Makes eval() debugger-friendly with ability to set breakpoints and see proper line numbers in Error stack traces.",
   "type": "module",
-  "main": "dist/lib/index.cjs",
+  "main": "dist/lib/cjs/index.cjs",
+  "module": "dist/lib/esm/index.mjs",
   "types": "dist/lib/index.d.ts",
   "exports": {
-    "types": "./dist/lib/index.d.ts",
-    "default": "./dist/lib/index.cjs"
+    "import": {
+      "types": "./dist/lib/index.d.ts",
+      "default": "./dist/lib/esm/index.mjs"
+    },
+    "require": {
+      "types": "./dist/lib/index.d.ts",
+      "default": "./dist/lib/cjs/index.cjs"
+    }
   },
   "files": [
     "dist/",
@@ -31,7 +38,8 @@
     "prepare": "jiti scripts/prepare.ts",
     "spellcheck": "jiti scripts/spellcheck.ts",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "version": "jiti scripts/version.ts"
   },
   "dependencies": {
     "acorn": "latest"
@@ -48,6 +56,7 @@
     "@tsconfig/strictest": "latest",
     "@types/markdown-it": "latest",
     "@types/node": "latest",
+    "@types/semver": "latest",
     "@typescript-eslint/utils": "latest",
     "@vitest/coverage-v8": "latest",
     "better-typescript-lib": "latest",
@@ -70,6 +79,7 @@
     "markdownlint-cli2": "latest",
     "markdownlint-rule-relative-links": "latest",
     "nano-staged": "latest",
+    "semver": "latest",
     "type-fest": "latest",
     "typescript": "latest",
     "typescript-eslint": "latest",

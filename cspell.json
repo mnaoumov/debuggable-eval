@@ -7,10 +7,15 @@
     "scripts/helpers/@types/markdownlint-cli2-config-schema.d.ts"
   ],
   "words": [
+    "creatordate",
     "debuggable",
     "Jsdocs",
     "mnaoumov",
     "Naumov",
+    "premajor",
+    "preminor",
+    "prepatch",
+    "Promisable",
     "TSES",
     "Tsdocs"
   ]

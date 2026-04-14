@@ -1,6 +1,6 @@
 {
   "name": "debuggable-eval",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Makes eval() debugger-friendly with ability to set breakpoints and see proper line numbers in Error stack traces.",
   "type": "module",
   "main": "dist/lib/cjs/index.cjs",

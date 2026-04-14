@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2.2.0
+
+- refactor: emit explicit .d.cts and .d.mts type declarations
+- feat: add version script and dual CJS/ESM build
+- fix(lint): add TSAsExpression TSTypeLiteral selector and fix violations
+- style: reorder exported function
+- refactor(test): use dedent for readable multiline string constants
+- feat: use acorn parser for syntax checking
+- fix: use node: protocol prefix in dynamic
+- refactor!: migrate to typescript-template toolchain with vitest
+- Update templates
+
 ## 2.1.1
 
 - Change slashes

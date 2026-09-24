@@ -97,9 +97,7 @@ export function readIndexContent(root: string, repoRelativePath: string): Promis
         return;
       }
 
-      reject(
-        new Error(`\`git cat-file blob :./${repoRelativePath}\` failed with exit code ${exitCode === null ? '(null)' : String(exitCode)}:\n${stderr.trim()}`)
-      );
+      reject(new Error(`\`git cat-file blob :./${repoRelativePath}\` failed with exit code ${exitCode === null ? '(null)' : String(exitCode)}:\n${stderr.trim()}`));
     });
   });
 }

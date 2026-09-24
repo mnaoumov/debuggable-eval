@@ -137,14 +137,12 @@ const TRANSFORM_ARMS: readonly TransformArm[] = [
   {
     apply: (text) => text.replaceAll('\'../../../type-guards.ts\'', '\'../type-guards.ts\''),
     fileNames: [],
-    reason:
-      'Upstream sits three levels under `src/script-utils/`, so it reaches `type-guards.ts` by `../../../`. A vendored tree sits directly beside its copy of that helper.'
+    reason: 'Upstream sits three levels under `src/script-utils/`, so it reaches `type-guards.ts` by `../../../`. A vendored tree sits directly beside its copy of that helper.'
   },
   {
     apply: (text) => text.split('\n').filter((line) => !UNICORN_DISABLE_LINE_PATTERN.test(line)).join('\n'),
     fileNames: [],
-    reason:
-      'Upstream carries inline `unicorn/…` disables, and this repo installs no `eslint-plugin-unicorn` at all - ESLint fails a WHOLE run on an unresolvable rule reference, and a file-scoped `\'unicorn/…\': \'off\'` override fails the same way, so stripping the line is the only shape available. This arm takes every file rather than a named one, because the rules that carry such a line upstream are not a fixed set: today they are `no-async-callback-to-unsafe-return.ts` and `require-method-template.ts`.'
+    reason: 'Upstream carries inline `unicorn/…` disables, and this repo installs no `eslint-plugin-unicorn` at all - ESLint fails a WHOLE run on an unresolvable rule reference, and a file-scoped `\'unicorn/…\': \'off\'` override fails the same way, so stripping the line is the only shape available. This arm takes every file rather than a named one, because the rules that carry such a line upstream are not a fixed set: today they are `no-async-callback-to-unsafe-return.ts` and `require-method-template.ts`.'
   }
 ];
 
@@ -222,9 +220,7 @@ async function compareVendoredFile(vendoredPath: string, root: string, scratchDi
   await writeFile(actualPath, actual);
 
   failures.push(
-    `${relativePath} differs from upstream after the recorded transform. See how with \`git diff --no-index ${expectedPath} ${actualPath}\` - the right-hand side is ${
-      isStaged ? `the STAGED ${relativePath}, which is what a commit would write` : `${relativePath} as it sits on disk, because it is untracked`
-    }.`
+    `${relativePath} differs from upstream after the recorded transform. See how with \`git diff --no-index ${expectedPath} ${actualPath}\` - the right-hand side is ${isStaged ? `the STAGED ${relativePath}, which is what a commit would write` : `${relativePath} as it sits on disk, because it is untracked`}.`
   );
 }
 
@@ -286,9 +282,7 @@ async function getUpstreamFileNames(): Promise<Set<string>> {
 
   if (!response.ok) {
     throw new Error(
-      `Could not list the upstream rule sources at ${UPSTREAM_LISTING_URL}: HTTP ${
-        String(response.status)
-      } ${response.statusText}. A 403 here is almost always GitHub's unauthenticated rate limit; set GITHUB_TOKEN, or turn this check off for the run with CHECK_VENDORED_ESLINT_RULES=0.`
+      `Could not list the upstream rule sources at ${UPSTREAM_LISTING_URL}: HTTP ${String(response.status)} ${response.statusText}. A 403 here is almost always GitHub's unauthenticated rate limit; set GITHUB_TOKEN, or skip this check for the run.`
     );
   }
 
@@ -338,9 +332,8 @@ async function main(): Promise<void> {
     }
 
     console.error('');
-    console.error(
-      'Each of these is a hand-copy that has aged apart from the source it was taken from. Take upstream\'s bytes; or, where the difference is deliberate, record it as a transform arm in this script so that every later run enforces it instead of reporting it.'
-    );
+    console.error('Each of these is a hand-copy that has aged apart from the source it was taken from. Take upstream\'s bytes; or, where the difference is deliberate, record it as a transform arm in this script so that every later run enforces it instead of reporting it.');
+
     console.error('');
     console.error(`The ${String(TRANSFORM_ARMS.length)} divergence(s) already recorded, so that a difference matching one of them is not reported above:`);
     for (const arm of TRANSFORM_ARMS) {

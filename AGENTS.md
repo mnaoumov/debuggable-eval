@@ -8,20 +8,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-| Task              | Command                 |
-|-------------------|-------------------------|
-| Build             | `npm run build`         |
-| TypeScript check  | `npx tsc --noEmit`      |
-| Lint              | `npm run lint`          |
-| Lint (fix)        | `npm run lint:fix`      |
-| Format            | `npm run format`        |
-| Format (check)    | `npm run format:check`  |
-| Spellcheck        | `npm run spellcheck`    |
-| Markdown lint     | `npm run lint:md`       |
-| Markdown lint fix | `npm run lint:md:fix`   |
-| Test              | `npm test`              |
-| Test (coverage)   | `npm run test:coverage` |
-| Commit (wizard)   | `npm run commit`        |
+| Task              | Command                               |
+|-------------------|---------------------------------------|
+| Build             | `npm run build`                       |
+| TypeScript check  | `npx tsc --noEmit`                    |
+| Lint              | `npm run lint`                        |
+| Lint (fix)        | `npm run lint:fix`                    |
+| Format            | `npm run format`                      |
+| Format (check)    | `npm run format:check`                |
+| Spellcheck        | `npm run spellcheck`                  |
+| Markdown lint     | `npm run lint:md`                     |
+| Markdown lint fix | `npm run lint:md:fix`                 |
+| Test              | `npm test`                            |
+| Test (coverage)   | `npm run test:coverage`               |
+| Commit (wizard)   | `npm run commit`                      |
+| Vendored rules    | `npm run check:vendored-eslint-rules` |
 
 ## Architecture
 
@@ -33,7 +34,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `.nano-staged.mjs` -> `scripts/nano-staged-config.ts`
 - **`scripts/`** — all npm script entry points (`jiti scripts/<name>.ts`)
 - **`scripts/helpers/`** — shared utilities (exec, root, format, eslint, markdownlint, type-guards)
-- **`scripts/helpers/eslint-rules/`** — custom ESLint rules
+- **`scripts/helpers/eslint-rules/`** — custom ESLint rules, hand-copied from `obsidian-dev-utils`'s `src/script-utils/linters/eslint-rules/`. Keep them byte-identical to upstream: `npm run check:vendored-eslint-rules` compares them (from the git index) after the transform arms recorded in `scripts/check-vendored-eslint-rules.ts`, and runs from nano-staged whenever one is staged. There is no CI, so run it by hand to catch upstream moving.
 - **`src/`** — library source code
   - `src/index.ts` — main entry point exporting `debuggableEval`
   - `src/index.test.ts` — vitest tests colocated with source

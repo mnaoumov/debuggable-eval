@@ -42,6 +42,7 @@
     "build": "npm run build:compile && npm run build:types",
     "build:compile": "jiti scripts/build-compile.ts",
     "build:types": "jiti scripts/build-types.ts",
+    "check:vendored-eslint-rules": "jiti scripts/check-vendored-eslint-rules.ts",
     "commit": "jiti scripts/commit.ts",
     "format": "jiti scripts/format.ts",
     "format:check": "jiti scripts/format-check.ts",

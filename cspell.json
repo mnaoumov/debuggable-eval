@@ -9,14 +9,17 @@
   "words": [
     "creatordate",
     "debuggable",
+    "esac",
     "Jsdocs",
     "mnaoumov",
     "Naumov",
+    "npmjs",
+    "nvmrc",
     "premajor",
     "preminor",
     "prepatch",
     "Promisable",
-    "TSES",
-    "Tsdocs"
+    "Tsdocs",
+    "TSES"
   ]
 }

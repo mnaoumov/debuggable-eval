@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 2.3.0
+
+- docs: document the vendored ESLint rule-source gate
+- feat(scripts): add `check:vendored-eslint-rules`, which checks the two hand-copied ESLint rule sources against obsidian-dev-utils, and bring both copies back in line with it
+- docs: migrate to AGENTS.md
+- build: replace commitizen with czg
+- feat: enforce 100% test coverage via the test-coverage script
+
 ## 2.2.1
 
 - chore: ignore archive

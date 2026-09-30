@@ -38,3 +38,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **`src/`** — library source code
   - `src/index.ts` — main entry point exporting `debuggableEval`
   - `src/index.test.ts` — vitest tests colocated with source
+
+## Releasing
+
+`npm run version <patch|minor|major|x.y.z>` checks, bumps, tags, pushes and creates the GitHub release, then watches `.github/workflows/publish-npm.yml`, which publishes to npm through a Trusted Publisher (OIDC, no token on this machine). The workflow's filename is part of the npm-side Trusted Publisher configuration, so do not rename it. A tag whose publish failed is re-published by re-running that run, or by dispatching the workflow with its `tag` input.

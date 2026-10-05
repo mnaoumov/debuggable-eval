@@ -44,6 +44,16 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name || inputs.tag }}
 
+      # A tag cut before `.nvmrc` was added (2.3.0 is one) has no pin of its own, and setup-node refuses a
+      # missing node-version-file. Take the pin from the commit this workflow runs from instead.
+      - name: Fall back to the workflow's own .nvmrc
+        run: |
+          if [ ! -f .nvmrc ]; then
+            git fetch --depth=1 origin "${{ github.sha }}"
+            git show "${{ github.sha }}:.nvmrc" > .nvmrc
+            echo "The tag has no .nvmrc; using $(cat .nvmrc) from ${{ github.sha }}"
+          fi
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:

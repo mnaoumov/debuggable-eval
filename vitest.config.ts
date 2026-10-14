@@ -1,5 +1,1 @@
-import { defineConfig } from 'vitest/config';
-
-import { config } from './scripts/vitest-config.ts';
-
-export default defineConfig(config);
+export { config as default } from './scripts/vitest-config.ts';

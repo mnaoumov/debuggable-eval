@@ -22,7 +22,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Test              | `npm test`                            |
 | Test (coverage)   | `npm run test:coverage`               |
 | Commit (wizard)   | `npm run commit`                      |
-| Vendored rules    | `npm run check:vendored-eslint-rules` |
 
 ## Architecture
 
@@ -33,8 +32,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `.markdownlint-cli2.mjs` -> `scripts/markdownlint-cli2-config.ts`
   - `.nano-staged.mjs` -> `scripts/nano-staged-config.ts`
 - **`scripts/`** — all npm script entry points (`jiti scripts/<name>.ts`)
-- **`scripts/helpers/`** — shared utilities (exec, root, format, eslint, markdownlint, type-guards)
-- **`scripts/helpers/eslint-rules/`** — custom ESLint rules, hand-copied from `obsidian-dev-utils`'s `packages/typescript-dev-toolkit/src/linters/eslint-rules/` (with the `ts-estree-node` helper two of them call; `scripts/helpers/object-utils.ts` carries its `castTo`). Keep them byte-identical to upstream: `npm run check:vendored-eslint-rules` compares them (from the git index) after the transform arms recorded in `scripts/check-vendored-eslint-rules.ts`, and runs from nano-staged whenever one is staged. There is no CI, so run it by hand to catch upstream moving.
+- **`scripts/helpers/`** — the repo's own script wrappers (format, eslint, markdownlint). Generic helpers come from the published packages rather than local copies: `execFromRoot` / `getRootFolder` from `@mnaoumov/typescript-dev-toolkit/root`, `toPosixPath` and the type guards from `@mnaoumov/typescript-lib`. Do not copy a helper back in; if one is missing, get it exported from its package.
+- **Custom ESLint rules** (`no-async-callback-to-unsafe-return`, `no-used-underscore-variables`) are imported from `@mnaoumov/typescript-dev-toolkit/linters/eslint-rules/*` in `scripts/eslint-config.ts` and registered there under the `custom/` namespace.
 - **`src/`** — library source code
   - `src/index.ts` — main entry point exporting `debuggableEval`
   - `src/index.test.ts` — vitest tests colocated with source

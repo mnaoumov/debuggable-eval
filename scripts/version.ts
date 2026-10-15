@@ -5,6 +5,15 @@ import type {
   UndefinedOnPartialDeep
 } from 'type-fest';
 
+import {
+  execFromRoot,
+  getRootFolder
+} from '@mnaoumov/typescript-dev-toolkit/root';
+import { toPosixPath } from '@mnaoumov/typescript-lib/path';
+import {
+  assertNonNullable,
+  ensureNonNullable
+} from '@mnaoumov/typescript-lib/type-guards';
 import { existsSync } from 'node:fs';
 import {
   readFile,
@@ -21,16 +30,6 @@ import {
   inc,
   prerelease
 } from 'semver';
-
-import {
-  execFromRoot,
-  getRootFolder,
-  toPosixPath
-} from './helpers/root.ts';
-import {
-  assertNonNullable,
-  ensureNonNullable
-} from './helpers/type-guards.ts';
 
 interface EditJsonOptions {
   readonly shouldSkipIfMissing?: boolean;
@@ -73,6 +72,16 @@ enum VersionUpdateType {
   PrePatch = 'prepatch',
   PreRelease = 'prerelease'
 }
+
+const RELEASE_VERSION_UPDATE_TYPES: ReadonlyMap<string, VersionUpdateType> = new Map([
+  VersionUpdateType.Major,
+  VersionUpdateType.Minor,
+  VersionUpdateType.Patch,
+  VersionUpdateType.PreMajor,
+  VersionUpdateType.PreMinor,
+  VersionUpdateType.PrePatch,
+  VersionUpdateType.PreRelease
+].map((type) => [type, type]));
 
 export function resolve(...pathSegments: string[]): string {
   const WINDOWS_POSIX_LIKE_PATH_REG_EXP = /[a-zA-Z]:\/[^:]*$/;
@@ -223,24 +232,16 @@ async function getReleaseNotes(newVersion: string): Promise<string> {
 }
 
 function getVersionUpdateType(versionUpdateType: string): VersionUpdateType {
-  const versionUpdateTypeEnum = versionUpdateType as VersionUpdateType;
-  switch (versionUpdateTypeEnum) {
-    case VersionUpdateType.Major:
-    case VersionUpdateType.Minor:
-    case VersionUpdateType.Patch:
-    case VersionUpdateType.PreMajor:
-    case VersionUpdateType.PreMinor:
-    case VersionUpdateType.PrePatch:
-    case VersionUpdateType.PreRelease:
-      return versionUpdateTypeEnum;
-
-    default:
-      if (/^\d+\.\d+\.\d+(?:-[\w\d.-]+)?$/.test(versionUpdateType)) {
-        return VersionUpdateType.Manual;
-      }
-
-      return VersionUpdateType.Invalid;
+  const releaseType = RELEASE_VERSION_UPDATE_TYPES.get(versionUpdateType);
+  if (releaseType !== undefined) {
+    return releaseType;
   }
+
+  if (/^\d+\.\d+\.\d+(?:-[\w\d.-]+)?$/.test(versionUpdateType)) {
+    return VersionUpdateType.Manual;
+  }
+
+  return VersionUpdateType.Invalid;
 }
 
 async function gitPush(): Promise<void> {

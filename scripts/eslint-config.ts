@@ -9,11 +9,17 @@
  * It sets up parsers, plugins, and rules for maintaining code quality and consistency.
  */
 
-import type { Linter } from 'eslint';
+import type {
+  ESLint,
+  Linter
+} from 'eslint';
 
 import commentsConfigs from '@eslint-community/eslint-plugin-eslint-comments/configs';
 import { includeIgnoreFile } from '@eslint/compat';
 import eslint from '@eslint/js';
+import { noAsyncCallbackToUnsafeReturn } from '@mnaoumov/typescript-dev-toolkit/linters/eslint-rules/no-async-callback-to-unsafe-return';
+import { noUsedUnderscoreVariables } from '@mnaoumov/typescript-dev-toolkit/linters/eslint-rules/no-used-underscore-variables';
+import { getRootFolder } from '@mnaoumov/typescript-dev-toolkit/root';
 // eslint-disable-next-line import-x/no-rename-default -- The default export name `plugin` is too confusing.
 import stylistic from '@stylistic/eslint-plugin';
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
@@ -29,8 +35,12 @@ import { join } from 'node:path/posix';
 // eslint-disable-next-line import-x/no-rename-default -- The default export name `_default` is too confusing.
 import tseslint from 'typescript-eslint';
 
-import { customEslintPlugin } from './helpers/eslint-rules/custom-eslint-plugin.ts';
-import { getRootFolder } from './helpers/root.ts';
+const customEslintPlugin: ESLint.Plugin = {
+  rules: {
+    'no-async-callback-to-unsafe-return': noAsyncCallbackToUnsafeReturn,
+    'no-used-underscore-variables': noUsedUnderscoreVariables
+  }
+};
 
 const rootConfigFiles = [
   'commitlint.config.ts',
@@ -289,10 +299,10 @@ function getImportXConfigs(): Linter.Config[] {
   return defineConfig([
     {
       extends: [
-        eslintPluginImportXFlatConfigs.recommended as Linter.Config,
-        eslintPluginImportXFlatConfigs.typescript as Linter.Config,
-        eslintPluginImportXFlatConfigs.errors as Linter.Config,
-        eslintPluginImportXFlatConfigs.warnings as Linter.Config
+        eslintPluginImportXFlatConfigs.recommended,
+        eslintPluginImportXFlatConfigs.typescript,
+        eslintPluginImportXFlatConfigs.errors,
+        eslintPluginImportXFlatConfigs.warnings
       ],
       files: allFiles,
       rules: {

@@ -1,10 +1,9 @@
-import { join } from 'node:path/posix';
-
 import {
   execFromRoot,
   getRootFolder
-} from './root.ts';
-import { assertNonNullable } from './type-guards.ts';
+} from '@mnaoumov/typescript-dev-toolkit/root';
+import { assertNonNullable } from '@mnaoumov/typescript-lib/type-guards';
+import { join } from 'node:path/posix';
 
 interface FormatParams {
   paths?: string[] | undefined;
@@ -18,5 +17,5 @@ export async function format(params?: FormatParams): Promise<void> {
 
   const command = rewrite ? 'fmt' : 'check';
   const targets = paths?.length ? paths : ['**/*'];
-  await execFromRoot(['npx', 'dprint', command, '--config', join(rootFolder, 'dprint.json'), { batchedArgs: targets }]);
+  await execFromRoot(['npx', 'dprint', command, '--config', join(rootFolder, 'dprint.json'), { batchedArguments: targets }]);
 }

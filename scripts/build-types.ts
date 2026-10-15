@@ -1,3 +1,4 @@
+import { execFromRoot } from '@mnaoumov/typescript-dev-toolkit/root';
 import {
   mkdirSync,
   readdirSync,
@@ -12,8 +13,6 @@ import {
   dirname,
   join
 } from 'node:path';
-
-import { execFromRoot } from './helpers/root.ts';
 
 const ESM_DIR = 'dist/lib/esm';
 const CJS_DIR = 'dist/lib/cjs';

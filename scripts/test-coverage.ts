@@ -1,4 +1,4 @@
-import { execFromRoot } from './helpers/root.ts';
+import { execFromRoot } from '@mnaoumov/typescript-dev-toolkit/root';
 
 const FULL_COVERAGE_IN_PERCENTS = 100;
 

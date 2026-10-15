@@ -34,7 +34,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   - `.nano-staged.mjs` -> `scripts/nano-staged-config.ts`
 - **`scripts/`** — all npm script entry points (`jiti scripts/<name>.ts`)
 - **`scripts/helpers/`** — shared utilities (exec, root, format, eslint, markdownlint, type-guards)
-- **`scripts/helpers/eslint-rules/`** — custom ESLint rules, hand-copied from `obsidian-dev-utils`'s `src/script-utils/linters/eslint-rules/`. Keep them byte-identical to upstream: `npm run check:vendored-eslint-rules` compares them (from the git index) after the transform arms recorded in `scripts/check-vendored-eslint-rules.ts`, and runs from nano-staged whenever one is staged. There is no CI, so run it by hand to catch upstream moving.
+- **`scripts/helpers/eslint-rules/`** — custom ESLint rules, hand-copied from `obsidian-dev-utils`'s `packages/typescript-dev-toolkit/src/linters/eslint-rules/` (with the `ts-estree-node` helper two of them call; `scripts/helpers/object-utils.ts` carries its `castTo`). Keep them byte-identical to upstream: `npm run check:vendored-eslint-rules` compares them (from the git index) after the transform arms recorded in `scripts/check-vendored-eslint-rules.ts`, and runs from nano-staged whenever one is staged. There is no CI, so run it by hand to catch upstream moving.
 - **`src/`** — library source code
   - `src/index.ts` — main entry point exporting `debuggableEval`
   - `src/index.test.ts` — vitest tests colocated with source

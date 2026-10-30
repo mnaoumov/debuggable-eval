@@ -1,4 +1,12 @@
-import { execFromRoot } from '@mnaoumov/typescript-dev-toolkit/root';
+import {
+  checkProjectTypes,
+  parseTsConfig,
+  toCanonical
+} from '@mnaoumov/typescript-dev-toolkit/check-project-types';
+import {
+  execFromRoot,
+  getRootFolder
+} from '@mnaoumov/typescript-dev-toolkit/root';
 import {
   mkdirSync,
   readdirSync,
@@ -16,6 +24,24 @@ import {
 
 const ESM_DIR = 'dist/lib/esm';
 const CJS_DIR = 'dist/lib/cjs';
+const NODE_MODULES_SEGMENT = '/node_modules/';
+
+function areProjectTypesValid(): boolean {
+  const root = getRootFolder();
+
+  if (!root) {
+    throw new Error('Could not find root folder');
+  }
+
+  const rootCanonical = toCanonical(root);
+  const { fileNames, options } = parseTsConfig(join(root, 'tsconfig.json'));
+
+  return !options.skipLibCheck || checkProjectTypes({
+    options,
+    rootNames: fileNames,
+    shouldKeepFile: (fileName) => shouldKeepProjectFile(fileName, rootCanonical)
+  });
+}
 
 function collectFiles(dir: string, ext: string): string[] {
   const result: string[] = [];
@@ -48,6 +74,10 @@ async function main(): Promise<void> {
 
     unlinkSync(filePath);
   }
+
+  if (!areProjectTypesValid()) {
+    throw new Error('TypeScript declaration validation failed.');
+  }
 }
 
 function rewriteImportExtensions(content: string, targetExt: string): string {
@@ -55,6 +85,10 @@ function rewriteImportExtensions(content: string, targetExt: string): string {
     /(?<prefix>from\s+['"])(?<path>[^'"]*?)\.ts(?<quote>['"])/g,
     `$<prefix>$<path>${targetExt}$<quote>`
   );
+}
+
+function shouldKeepProjectFile(fileName: string, rootCanonical: string): boolean {
+  return fileName.startsWith(`${rootCanonical}/`) && !fileName.includes(NODE_MODULES_SEGMENT);
 }
 
 function toForwardSlash(p: string): string {

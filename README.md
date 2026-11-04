@@ -33,6 +33,10 @@ throw new Error('Error in Line 3');`, 'testScript.js');
 
 Last searched for similar libraries on 2026-11-04.
 
+## Changelog
+
+All notable changes to this project will be documented in the [CHANGELOG](./CHANGELOG.md).
+
 ## Support
 
 [Buy Me A Coffee](https://www.buymeacoffee.com/mnaoumov)

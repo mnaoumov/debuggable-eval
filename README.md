@@ -24,8 +24,6 @@ throw new Error('Error in Line 3');`, 'testScript.js');
 
 ## See also
 
-[My other Obsidian resources](https://mnaoumov.dev/obsidian/)
-
 | Library | Features | How `debuggable-eval` differs |
 | --- | --- | --- |
 | [`eval`](https://github.com/pierrec/node-eval) | Evaluates module content through Node's `vm`; optional file name for stack traces; scope object; optional globals | Same goal as `eval`, for plain code rather than modules; runs anywhere `eval()` runs, including browsers and Electron; adds a syntax pre-check reporting script name, line and column; omits sandboxing, scope injection and `module.exports` |

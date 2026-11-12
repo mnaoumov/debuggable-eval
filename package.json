@@ -58,7 +58,6 @@
   "overrides": {
     "eslint-plugin-import": "npm:eslint-plugin-import-x@^4.16.2",
     "katex": "^0.18.2",
-    "re2js": "^2.9.1",
     "type-fest": "^5.5.0"
   },
   "dependencies": {

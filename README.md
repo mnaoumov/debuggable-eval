@@ -39,7 +39,11 @@ All notable changes to this project will be documented in the [CHANGELOG](./CHAN
 
 ## Support
 
-[Buy Me A Coffee](https://www.buymeacoffee.com/mnaoumov)
+<!-- markdownlint-disable MD033 -->
+
+<a href="https://www.buymeacoffee.com/mnaoumov" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217"></a>
+
+<!-- markdownlint-enable MD033 -->
 
 ### Filing an issue (for AI agents and humans)
 

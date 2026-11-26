@@ -1,10 +1,8 @@
 # debuggable-eval
 
-Makes `eval()` debugger-friendly with ability to set breakpoints and see proper line numbers in Error stack traces.
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/mnaoumov) [![npm version](https://img.shields.io/npm/v/debuggable-eval)](https://www.npmjs.com/package/debuggable-eval) [![npm downloads](https://img.shields.io/npm/dm/debuggable-eval)](https://www.npmjs.com/package/debuggable-eval) [![Coverage: 100%](https://img.shields.io/badge/coverage-100%25-brightgreen)](https://github.com/mnaoumov/debuggable-eval) [![License](https://img.shields.io/github/license/mnaoumov/debuggable-eval)](https://github.com/mnaoumov/debuggable-eval/blob/main/LICENSE) [![Types](https://img.shields.io/npm/types/debuggable-eval)](https://www.npmjs.com/package/debuggable-eval)
 
-[![npm version](https://img.shields.io/github/release/mnaoumov/debuggable-eval.svg?style=flat&color=336791)](https://github.com/mnaoumov/debuggable-eval)
-[![npm downloads](https://img.shields.io/npm/dw/debuggable-eval?style=flat&color=336791)](https://www.npmjs.com/package/debuggable-eval)
-[![codecov](https://codecov.io/gh/mnaoumov/debuggable-eval/branch/main/graph/badge.svg?token=Q9fr548J0D)](https://codecov.io/gh/mnaoumov/debuggable-eval)
+Makes `eval()` debugger-friendly with ability to set breakpoints and see proper line numbers in Error stack traces.
 
 ## Usage
 

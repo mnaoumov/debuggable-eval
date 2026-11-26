@@ -29,7 +29,7 @@ throw new Error('Error in Line 3');`, 'testScript.js');
 | [`node:vm` `runInThisContext()`](https://nodejs.org/api/vm.html#vmruninthiscontextcode-options) | Built-in Node API; `filename`, `lineOffset` and `columnOffset` options for stack traces | Covers part of `runInThisContext()`: names the script the same way through a `//# sourceURL` pragma, so it also works outside Node; generates a name when none is given; omits line and column offsets |
 | [`require-from-string`](https://github.com/floatdrop/require-from-string) | Compiles a CommonJS module from a string with an optional file name | Same goal as `require-from-string`, for plain code rather than modules; not Node-only; adds a syntax pre-check; omits module semantics and `require()` resolution |
 
-Last searched for similar libraries on 2026-11-04.
+Last searched for similar libraries on 2026-11-26.
 
 ## Changelog
 
